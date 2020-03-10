@@ -1,0 +1,22 @@
+{
+  "name": "Super auta w gwarnacji do bramy",
+  "short_name": "sprzedam opla",
+  "icons": [{
+    "src": "images/ico1.png",
+    "sizes": "128x128",
+    "type": "image/png"
+  }, {
+    "src": "images/ico2.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }, {
+    "src": "images/ico3.png",
+    "sizes": "152x152",
+    "type": "image/png"
+  }],
+  "lang": "en-US",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "white",
+  "theme_color": "white"
+}
