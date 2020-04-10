@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+
+var firebaseConfig = {
+    apiKey: "AIzaSyBMvi6ylSBLCSJor7Wv3zQsR2lNAed-NOg",
+    authDomain: "mybooks-34952.firebaseapp.com",
+    databaseURL: "https://mybooks-34952.firebaseio.com",
+    projectId: "mybooks-34952",
+    storageBucket: "mybooks-34952.appspot.com",
+    messagingSenderId: "797340900340",
+    appId: "1:797340900340:web:de7468ebfbae318207f7a1",
+    measurementId: "G-EZ4YDE5WJ8"
+        }
+
+        firebase.initializeApp(firebaseConfig);
+        var firestore = firebase.firestore()
+
+        var json = "./animal.json"
+        fetch(json)
+            .then(response => response.json())
+            .then(json => {
+                for (let item of json) {
+
+                    const data = firestore.doc('animals/animal' + item.id)
+
+                    data.set({
+                        id: item.id,
+                        name: item.name,
+                        scientific_name: item.scientific_name,
+                        phone: item.phone,
+                        gender: item.gender,
+                        city: item.city
+                    }).then(
+                        console.log('Added' + item.id)
+                    )
+
+                }
+            })
+
+    </script>
+</body>
+
+</html>
