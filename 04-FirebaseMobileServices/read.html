@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+</head>
+
+<body>
+    <div id="aplikacja"></div>
+    <script>
+
+var firebaseConfig = {
+            apiKey: "AIzaSyBMvi6ylSBLCSJor7Wv3zQsR2lNAed-NOg",
+              authDomain: "mybooks-34952.firebaseapp.com",
+              databaseURL: "https://mybooks-34952.firebaseio.com",
+              projectId: "mybooks-34952",
+              storageBucket: "mybooks-34952.appspot.com",
+              messagingSenderId: "797340900340",
+              appId: "1:797340900340:web:de7468ebfbae318207f7a1",
+              measurementId: "G-EZ4YDE5WJ8"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        var firestore = firebase.firestore()
+        const div = document.getElementById("aplikacja")
+        const dane = firestore.collection('animals')
+        var frag = document.createDocumentFragment()
+        var tablica = document.createElement("tablica")
+        dane.get().then(function (querySnapshot) {
+            querySnapshot.forEach(item => {
+                var w = document.createElement("tr")
+                var wValues = [item.dane().id, item.dane().name, 
+                item.dane().scientific_name, item.dane().phone, 
+                item.dane().gender, item.dane().city]
+
+                wValues.forEach(item => {
+                    var td = document.createElement("td")
+                    td.textContent = item
+                    w.appendChild(td)
+                })
+                tablica.appendChild(w)
+            })
+        })
+        frag.appendChild(tablica)
+        document.body.appendChild(frag)
+    </script>
+</body>
+
+</html>
