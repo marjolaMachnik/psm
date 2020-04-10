@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+
+</head>
+
+<body>
+
+    <div id="book">
+        <h3 id="ulubiona">Dodaj swoją ulubioną książkę:</h3>
+        <input type="textfield" id="tytul" placeholder="tytul" /><br>
+        <input type="textfield" id="autor" placeholder="autor" /><br>
+        <input type="textfield" id="rok" placeholder="rok" /><br>
+        <input type="textfield" id="gatunek" placeholder="gatunek" /><br>
+        <input type="textfield" id="isbn" placeholder="isbn" /><br>
+        <button id="saveBook">Zapisz</button>
+        <button id="loadBook">Załaduj</button>
+        <div id="loadedBook"></div>
+    </div>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyBMvi6ylSBLCSJor7Wv3zQsR2lNAed-NOg",
+              authDomain: "mybooks-34952.firebaseapp.com",
+              databaseURL: "https://mybooks-34952.firebaseio.com",
+              projectId: "mybooks-34952",
+              storageBucket: "mybooks-34952.appspot.com",
+              messagingSenderId: "797340900340",
+              appId: "1:797340900340:web:de7468ebfbae318207f7a1",
+              measurementId: "G-EZ4YDE5WJ8"
+        }
+        firebase.initializeApp(firebaseConfig)
+
+        var firestore = firebase.firestore();
+
+        const dane = firestore.doc("books/książki")
+
+        const bookText = document.querySelector('#loadedBook')
+
+        const ktytuł = document.querySelector('#tytul')
+        const kautor = document.querySelector('#autor')
+        const krok = document.querySelector('#rok')
+        const kgatunek = document.querySelector('#gatunek')
+        const kISBN = document.querySelector('#isbn')
+
+        const saveButton = document.querySelector('#saveBook')
+        const loadButton = document.querySelector('#loadBook')
+
+        saveButton.addEventListener("click", function () {
+            const DaneKsiążka = [ktytuł.value, kautor.value, krok.value, kgatunek.value, kISBN.value]
+
+            dane.set({
+                tytuł: DaneKsiążka[0],
+                autor: DaneKsiążka[1],
+                rok: DaneKsiążka[2],
+                gatunek: DaneKsiążka[3],
+                isbn: DaneKsiążka[4]
+            })
+        })
+
+        loadButton.addEventListener("click", function () {
+            dane.get().then(function (doc) {
+                if (doc && doc.exists) {
+                    const myData = doc.data()
+                    console.log(myData)
+                    for (const [item, value] of Object.entries(myData)) {
+                        bookText.innerHTML += `<b>${item}</b>: ${value} <br>`
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
